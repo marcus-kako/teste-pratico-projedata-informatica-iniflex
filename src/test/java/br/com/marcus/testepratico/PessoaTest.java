@@ -5,6 +5,7 @@ import br.com.marcus.testepratico.error.InvalidDateFormatException;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.LocalDate;
@@ -17,7 +18,7 @@ public class PessoaTest {
 
   @Test
   @DisplayName("É possivel criar uma nova instância da classe Pessoa")
-  public void testaConstrutorPessoa() throws InvalidDateFormatException {
+  public void testaConstrutorPessoa() throws InvalidDateFormatException, FutureDateException {
     Pessoa pessoa = new Pessoa("Pessoa1", "31/12/1998");
     assertNotNull(pessoa);
   }
@@ -33,6 +34,12 @@ public class PessoaTest {
         () -> new Pessoa("PessoaDataInvalida", "1111111111"), message);
     assertThrows(InvalidDateFormatException.class,
         () -> new Pessoa("PessoaDataInvalida", "10-03-1980"), message);
+    assertThrows(InvalidDateFormatException.class,
+        () -> new Pessoa("PessoaDataInvalida", "10/ab/2a12"), message);
+    assertThrows(InvalidDateFormatException.class,
+        () -> new Pessoa("PessoaDataInvalida", "100/ab/2a1"), message);
+    assertThrows(InvalidDateFormatException.class,
+        () -> new Pessoa("PessoaDataInvalida", "dd/MM/yyyy"), message);
   }
 
   @Test
@@ -46,7 +53,7 @@ public class PessoaTest {
 
   @Test
   @DisplayName("A Classe Pessoa possui Getters e Setters")
-  public void possuiGettersAndSetters() throws InvalidDateFormatException {
+  public void possuiGettersAndSetters() throws InvalidDateFormatException, FutureDateException {
     // Ao criar Pessoa.
     String nome1 = "Antônio";
     String data1 = "25/08/1998";
@@ -66,5 +73,17 @@ public class PessoaTest {
 
     assertTrue(pessoa1.getNome().equals(nomeAtt));
     assertTrue(pessoa1.getDataNascimento().equals(localDateAtt));
+  }
+  
+  @Test
+  @DisplayName("A Classe Pessoa possui atributos nome do tipo String e dataNascimento do tipo LocalDate")
+  public void testaAtributosPessoa() throws InvalidDateFormatException, FutureDateException {
+    String nome = "Me Contrata Please";
+    String data = "22/08/2000";
+
+    Pessoa pessoa = new Pessoa(nome, data);
+    assertNotNull(pessoa);
+    assertEquals(String.class, pessoa.getNome().getClass());
+    assertEquals(LocalDate.class, pessoa.getDataNascimento().getClass());
   }
 }
