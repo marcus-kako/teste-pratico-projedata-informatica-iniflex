@@ -17,16 +17,25 @@ public class Principal {
   public static void main(String[] args) throws InvalidDateFormatException, FutureDateException {
     // Requisitos.
     // 3.1 – Inserir todos os funcionários, na mesma ordem e informações da tabela.
-    adicionaAoArray();
-    // 3.2 – Remover o funcionário “João” da lista.
-    removeByName("João");
-    // 3.3 – Imprimir todos os funcionários com todas suas informações.
-    mostrarTabela();
-  }
-
-  public static void adicionaAoArray() throws InvalidDateFormatException, FutureDateException {
     System.out
         .println("[Requisito 3.1] ___________________________________________________________");
+    addToArray();
+    // 3.2 – Remover o funcionário “João” da lista.
+    System.out
+        .println("\n [Requisito 3.2] ___________________________________________________________");
+    removeByName("João");
+    // 3.3 – Imprimir todos os funcionários com todas suas informações.
+    System.out
+    .println("\n [Requisito 3.3] ___________________________________________________________");
+    showTable();
+    // 3.4 – Os funcionários receberam 10% de aumento de salário, atualizar a lista
+    // de funcionários com novo valor.
+    System.out
+    .println("\n [Requisito 3.4] ___________________________________________________________");
+    salaryIncrease(10);
+  }
+
+  public static void addToArray() throws InvalidDateFormatException, FutureDateException {
     System.out.println(
         "========+========== Iniciando insersão de todos os funcionários ======+============");
 
@@ -68,8 +77,6 @@ public class Principal {
   }
 
   public static void removeByName(String nome) {
-    System.out
-        .println("[Requisito 3.2] ___________________________________________________________");
     System.out.println("========+========== Removendo funcionário da lista. ======+============");
     System.out.printf("==== Tamanho da lista de funcionários atual: [%s] \n", funcionarios.size());
     Funcionario funcionarioRemove = null;
@@ -92,9 +99,7 @@ public class Principal {
     }
   }
 
-  public static void mostrarTabela() {
-    System.out
-        .println("[Requisito 3.3] ___________________________________________________________");
+  public static void showTable() {
     System.out
         .println("===+====== Imprimindo todos funcionários com todas informações ======+===\n");
     System.out.println("*************************************************************************");
@@ -105,7 +110,8 @@ public class Principal {
       System.out.printf("%7s %20s %15s %17s", funcionario.getNome(),
           formatarData(funcionario.getDataNascimento()), formatarSalario(funcionario.getSalario()),
           funcionario.getFuncao());
-      System.out.println("\n-------------------------------------------------------------------------");
+      System.out
+          .println("\n-------------------------------------------------------------------------");
 //      System.out.println();
     }
   }
@@ -126,5 +132,17 @@ public class Principal {
     DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     formato.format(data);
     return formato.format(data);
+  }
+
+  /**
+   * Recebe um valor referente à porcentágem. ex: Se for 25% >> porcentagem será
+   * 25.
+   */
+  public static void salaryIncrease(float porcentagem) {
+    for (Funcionario func : funcionarios) {
+      func.salaryIncrease(porcentagem);
+    }
+    System.out.println("$$$$$$$$$$$$$$$$$$$$ Aumentando salário em " + porcentagem + "% $$$$$$$$$$$$$$$$$$$$$$\n");
+    showTable();
   }
 }

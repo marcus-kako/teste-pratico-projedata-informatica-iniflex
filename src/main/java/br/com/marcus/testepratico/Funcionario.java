@@ -72,6 +72,16 @@ public class Funcionario extends Pessoa {
     return converterSalario;
   }
 
+  /**
+   * Recebe um valor referente à porcentágem. ex: Se for 25% >> porcentagem será
+   * 25.
+   */
+  public void salaryIncrease(float pct) {
+    BigDecimal porcentagem = new BigDecimal(String.valueOf(pct / 100));
+    BigDecimal aumento = this.salario.multiply(porcentagem);
+    this.salario = this.salario.add(aumento);
+  }
+  
   @Override
   public String toString() {
     DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
