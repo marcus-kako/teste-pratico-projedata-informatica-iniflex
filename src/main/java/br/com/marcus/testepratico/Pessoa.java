@@ -139,4 +139,10 @@ public class Pessoa {
       throw new FutureDateException();
     }
   }
+  
+  @Override
+  public String toString() {
+    DateTimeFormatter formato = DateTimeFormatter.ofPattern(formatoDate);
+    return "Nome: " + this.nome + ", Data Nascimento: " + formato.format(this.dataNascimento);  
+  }
 }

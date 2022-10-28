@@ -4,6 +4,7 @@ import br.com.marcus.testepratico.error.FutureDateException;
 import br.com.marcus.testepratico.error.InvalidDateFormatException;
 
 import java.math.BigDecimal;
+import java.time.format.DateTimeFormatter;
 
 /**
  * 2 – Classe Funcionário que estenda a classe Pessoa, com os atributos: salário
@@ -67,6 +68,15 @@ public class Funcionario extends Pessoa {
     String strSalario = String.valueOf(salario);
     BigDecimal converterSalario = new BigDecimal(strSalario);
     return converterSalario;
+  }
+
+  @Override
+  public String toString() {
+    DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+    return "Nome: " + this.getNome() + ", Data Nascimento: "
+        + formato.format(this.getDataNascimento()) + ", Salário: " + this.getSalario()
+        + ", Função: " + this.getFuncao();
   }
 
 }
