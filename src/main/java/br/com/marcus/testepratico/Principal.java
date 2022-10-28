@@ -3,6 +3,10 @@ package br.com.marcus.testepratico;
 import br.com.marcus.testepratico.error.FutureDateException;
 import br.com.marcus.testepratico.error.InvalidDateFormatException;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 /** Classe referente ao requisito 3. */
@@ -12,17 +16,12 @@ public class Principal {
 
   public static void main(String[] args) throws InvalidDateFormatException, FutureDateException {
     // Requisitos.
-
-    /**
-     * 3.1 – Inserir todos os funcionários, na mesma ordem e informações da tabela
-     * acima.
-     */
+    // 3.1 – Inserir todos os funcionários, na mesma ordem e informações da tabela.
     adicionaAoArray();
-
-    /**
-     * 3.2 – Remover o funcionário “João” da lista.
-     */
+    // 3.2 – Remover o funcionário “João” da lista.
     removeByName("João");
+    // 3.3 – Imprimir todos os funcionários com todas suas informações.
+    mostrarTabela();
   }
 
   public static void adicionaAoArray() throws InvalidDateFormatException, FutureDateException {
@@ -71,18 +70,15 @@ public class Principal {
   public static void removeByName(String nome) {
     System.out
         .println("[Requisito 3.2] ___________________________________________________________");
-    System.out.println(
-        "========+========== Removendo funcionário da lista. ======+============");
-    System.out.printf("==== Lista de funcionários [%s]: \n\n", funcionarios.size());
-    for (Funcionario fun : funcionarios) {
-      System.out.println(fun.toString());
-    }
+    System.out.println("========+========== Removendo funcionário da lista. ======+============");
+    System.out.printf("==== Tamanho da lista de funcionários atual: [%s] \n", funcionarios.size());
     Funcionario funcionarioRemove = null;
-    System.out.printf("\n___ Verificando se o funcionário de nome: %s, se encontra na lista. ___\n", nome);
+    System.out.printf(">>Verificando se o funcionário de nome: %s, se encontra na lista.\n", nome);
     for (Funcionario fun : funcionarios) {
       if (fun.getNome().equals(nome)) {
         funcionarioRemove = fun;
         System.out.printf(">> Funcionário de nome: %s, encontrado. iniciando remoção.\n", nome);
+        System.out.println("\n>>> Detalhes: [" + fun.toString() + "]\n");
       }
     }
 
@@ -91,10 +87,44 @@ public class Principal {
     } else {
       funcionarios.remove(funcionarioRemove);
       System.out.printf(">> Funcionário de nome: %s, removido com sucesso!\n", nome);
-      System.out.printf("==== Lista de funcionários atualizada [%s]: \n\n", funcionarios.size());
-      for (Funcionario fun : funcionarios) {
-        System.out.println(fun.toString());
-      }
+      System.out.printf("==== Tamanho da lista de funcionários atualizada: [%s] \n\n",
+          funcionarios.size());
     }
+  }
+
+  public static void mostrarTabela() {
+    System.out
+        .println("[Requisito 3.3] ___________________________________________________________");
+    System.out
+        .println("===+====== Imprimindo todos funcionários com todas informações ======+===\n");
+    System.out.println("*************************************************************************");
+    System.out.printf("%7s %20s %15s %17s", "NOME", "DATA NASCIMENTO", "SALÁRIO", "FUNÇÃO");
+    System.out.println();
+    System.out.println("*************************************************************************");
+    for (Funcionario funcionario : funcionarios) {
+      System.out.printf("%7s %20s %15s %17s", funcionario.getNome(),
+          formatarData(funcionario.getDataNascimento()), formatarSalario(funcionario.getSalario()),
+          funcionario.getFuncao());
+      System.out.println("\n-------------------------------------------------------------------------");
+//      System.out.println();
+    }
+  }
+
+  private static String formatarSalario(BigDecimal salario) {
+    try {
+      String salarioStr = String.valueOf(salario);
+      double salarioLong = Double.valueOf(salarioStr);
+      DecimalFormat df = new DecimalFormat(",###.##");
+      return df.format(salarioLong);
+    } catch (Exception e) {
+      return null;
+    }
+
+  }
+
+  private static String formatarData(LocalDate data) {
+    DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    formato.format(data);
+    return formato.format(data);
   }
 }
