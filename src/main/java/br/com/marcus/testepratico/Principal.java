@@ -68,6 +68,12 @@ public class Principal {
     System.out
         .println("\n [Requisito 3.11] ___________________________________________________________");
     totalSalary();
+
+    // 3.12 – Imprimir quantos salários mínimos ganha cada funcionário, considerando
+    // que o salário mínimo é R$1212.00.
+    System.out
+        .println("\n [Requisito 3.12] ___________________________________________________________");
+    qtyMinimunWage(1212.00);
   }
 
   public static void addToArray() throws InvalidDateFormatException, FutureDateException {
@@ -266,5 +272,24 @@ public class Principal {
       salarioTotal = salarioTotal.add(funcionario.getSalario());
     }
     System.out.printf("R$ %s \n", formatarSalario(salarioTotal));
+  }
+
+  private static void qtyMinimunWage(double minimunWage) {
+    System.out.println(
+        "========+========== Quantos salários mínimos cada funcionário recebe ======+============");
+
+    BigDecimal valorSalarioMinimo = new BigDecimal(String.valueOf(minimunWage));
+    String salarioMinimo = formatarSalario(valorSalarioMinimo);
+    String temVirgula = salarioMinimo.contains(",") ? "" : ",00";
+    System.out.printf("Considerando que o valor do salário mínimo seja R$ %s%s : \n\n",
+        salarioMinimo, temVirgula);
+
+    for (Funcionario funcionario : funcionarios) {
+      String nome = funcionario.getNome();
+      double qtySalariosMinimos = funcionario.getSalario().doubleValue() / minimunWage;
+      System.out.printf(
+          "A pessoa funcionária %7s recebe o equivalente à %4.1f salários mínimos. \n", nome,
+          qtySalariosMinimos);
+    }
   }
 }
