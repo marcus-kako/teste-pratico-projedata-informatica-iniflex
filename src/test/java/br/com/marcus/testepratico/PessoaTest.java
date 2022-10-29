@@ -74,7 +74,7 @@ public class PessoaTest {
     assertTrue(pessoa1.getNome().equals(nomeAtt));
     assertTrue(pessoa1.getDataNascimento().equals(localDateAtt));
   }
-  
+
   @Test
   @DisplayName("A Classe Pessoa possui atributos nome do tipo String e dataNascimento do tipo LocalDate")
   public void testaAtributosPessoa() throws InvalidDateFormatException, FutureDateException {

@@ -81,7 +81,7 @@ public class Funcionario extends Pessoa {
     BigDecimal aumento = this.salario.multiply(porcentagem);
     this.salario = this.salario.add(aumento);
   }
-  
+
   @Override
   public String toString() {
     DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");

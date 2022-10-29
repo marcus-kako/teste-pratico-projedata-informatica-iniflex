@@ -14,8 +14,10 @@ import java.util.Map;
 /** Classe referente ao requisito 3. */
 public class Principal {
 
+  /** Lista de funcionários. */
   private static ArrayList<Funcionario> funcionarios = new ArrayList<>();
 
+  /** Main da classe: Local onde Executamos os exercícios. */
   public static void main(String[] args) throws InvalidDateFormatException, FutureDateException {
     // Requisitos.
 
@@ -76,6 +78,7 @@ public class Principal {
     qtyMinimunWage(1212.00);
   }
 
+  /** Cria Funcionários e adiciona à Lista de funcionários: funcionarios. */
   public static void addToArray() throws InvalidDateFormatException, FutureDateException {
     System.out.println(
         "========+========== Iniciando insersão de todos os funcionários ======+============");
@@ -117,6 +120,11 @@ public class Principal {
 
   }
 
+  /**
+   * Remove um funcionário da lista de funcionários.
+   * 
+   * @param nome refere-se ao nome do funcionário que será removido da lista.
+   */
   public static void removeByName(String nome) {
     System.out.println("========+========== Removendo funcionário da lista. ======+============");
     System.out.printf("==== Tamanho da lista de funcionários atual: [%s] \n", funcionarios.size());
@@ -140,6 +148,9 @@ public class Principal {
     }
   }
 
+  /**
+   * Imprime na tela uma tabela de todos os funcionários com todas as informações.
+   */
   public static void showTable() {
     System.out
         .println("===+====== Imprimindo todos funcionários com todas informações ======+===\n");
@@ -157,6 +168,12 @@ public class Principal {
     }
   }
 
+  /**
+   * Retorna uma String referente ao salário transformado com separador de milhar
+   * como ponto, e decimal como vírgula.
+   * 
+   * @param do tipo BigDecimal, refere-se ao salário a ser transformado.
+   */
   private static String formatarSalario(BigDecimal salario) {
     try {
       String salarioStr = String.valueOf(salario);
@@ -169,6 +186,12 @@ public class Principal {
 
   }
 
+  /**
+   * Retorna uma String referente à uma data, transformada para o formato
+   * dd/MM/yyyy.
+   * 
+   * @param data refere-se à data a ser transformada.
+   */
   private static String formatarData(LocalDate data) {
     DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     formato.format(data);
@@ -188,6 +211,10 @@ public class Principal {
     showTable();
   }
 
+  /**
+   * Imprime na tela um Map com as chaves sendo as funções, e o valor sendo os
+   * funcionários que trabalham naquela função.
+   */
   public static void groupOfEmployees() {
     System.out.println(
         "================= Ordenando funcionários pelos seus cargos ======================");
@@ -207,6 +234,13 @@ public class Principal {
 
   }
 
+  /**
+   * Imprime na tela o nome dos funcionários que fazem aniversário no mês passado
+   * por parâmetro.
+   * 
+   * @param mes refere-se ao numero do mês correspondente. (1-12) ex: 1 é o mês de
+   *            Janeiro.
+   */
   public static void birthdayMonth(int mes) {
     Map<Integer, String> mesesDoAno = new HashMap<>();
 
@@ -231,6 +265,9 @@ public class Principal {
     System.out.println(aniversariantes.toString());
   }
 
+  /**
+   * Imprime na tela o nome e idade da pessoa mais velha da lista de funcionários.
+   */
   public static void olderEmployee() {
     Funcionario oldEmployee = funcionarios.get(0);
     for (Funcionario funcionario : funcionarios) {
@@ -249,6 +286,7 @@ public class Principal {
     System.out.printf("Nome: %s, Idade: %s anos.\n", nome, idade);
   }
 
+  /** Imprime na tela os nomes dos funcionários por ordem alfabética. */
   public static void alphabeticalOrder() {
     System.out
         .println("================ Lista de funcionários em ordem alfabética ===================");
@@ -262,6 +300,7 @@ public class Principal {
     System.out.println(nomes);
   }
 
+  /** Imprime na tela o valor total somando o salário de todos os funcionários. */
   public static void totalSalary() {
     System.out
         .println("================ Valor total dos salários dos funcionários ===================");
@@ -274,6 +313,10 @@ public class Principal {
     System.out.printf("R$ %s \n", formatarSalario(salarioTotal));
   }
 
+  /**
+   * Imprime na tela uma mensagem que contem o nome e o equivalente à quantos
+   * salários mínimos cada funcionário recebe.
+   */
   private static void qtyMinimunWage(double minimunWage) {
     System.out.println(
         "========+========== Quantos salários mínimos cada funcionário recebe ======+============");
