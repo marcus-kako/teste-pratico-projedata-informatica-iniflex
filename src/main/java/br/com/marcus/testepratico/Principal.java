@@ -63,6 +63,11 @@ public class Principal {
     System.out
         .println("\n [Requisito 3.10] ___________________________________________________________");
     alphabeticalOrder();
+
+    // 3.11 – Imprimir o total dos salários dos funcionários.
+    System.out
+        .println("\n [Requisito 3.11] ___________________________________________________________");
+    totalSalary();
   }
 
   public static void addToArray() throws InvalidDateFormatException, FutureDateException {
@@ -249,5 +254,17 @@ public class Principal {
 
     nomes.sort(null);
     System.out.println(nomes);
+  }
+
+  public static void totalSalary() {
+    System.out
+        .println("================ Valor total dos salários dos funcionários ===================");
+
+    BigDecimal salarioTotal = new BigDecimal("0");
+
+    for (Funcionario funcionario : funcionarios) {
+      salarioTotal = salarioTotal.add(funcionario.getSalario());
+    }
+    System.out.printf("R$ %s \n", formatarSalario(salarioTotal));
   }
 }
