@@ -8,8 +8,8 @@ import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
- import java.util.HashMap;
- import java.util.Map;
+import java.util.HashMap;
+import java.util.Map;
 
 /** Classe referente ao requisito 3. */
 public class Principal {
@@ -43,9 +43,15 @@ public class Principal {
     // 3.5 – Agrupar os funcionários por função em um MAP, sendo a chave a “função”
     // e o valor a “lista de funcionários”.
     // 3.6 – Imprimir os funcionários, agrupados por função.
-    System.out
-        .println("\n [Requisito 3.5, 3.6] ___________________________________________________________");
+    System.out.println(
+        "\n [Requisito 3.5, 3.6] ___________________________________________________________");
     groupOfEmployees();
+
+    // 3.8 – Imprimir os funcionários que fazem aniversário no mês 10 e 12.
+    System.out
+        .println("\n [Requisito 3.8] ___________________________________________________________");
+    birthdayMonth(10);
+    birthdayMonth(12);
   }
 
   public static void addToArray() throws InvalidDateFormatException, FutureDateException {
@@ -161,7 +167,8 @@ public class Principal {
   }
 
   public static void groupOfEmployees() {
-    System.out.println("================= Ordenando funcionários pelos seus cargos ======================");
+    System.out.println(
+        "================= Ordenando funcionários pelos seus cargos ======================");
     Map<String, ArrayList<String>> orderByFunc = new HashMap<>();
     for (Funcionario funcionario : funcionarios) {
       if (orderByFunc.get(funcionario.getFuncao()) == null) {
@@ -175,6 +182,30 @@ public class Principal {
       }
     }
     System.out.println(orderByFunc);
+
+  }
+
+  public static void birthdayMonth(int mes) {
+    Map<Integer, String> mesesDoAno = new HashMap<>();
     
+    Integer[] intMes = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
+    String[] meses = { "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto",
+        "Setembro", "Outubro", "Novembro", "Dezembro" };
+    
+    for (int index = 0; index < intMes.length; index += 1) {
+      mesesDoAno.put(intMes[index], meses[index]);
+    }
+    
+    System.out.printf("Aniversariantes do mes %s (%s): ", mes, mesesDoAno.get(mes));
+    
+    ArrayList<String> aniversariantes = new ArrayList<>();
+    
+    for (Funcionario funcionario : funcionarios) {
+      if (funcionario.getDataNascimento().getMonthValue() == mes) {
+        aniversariantes.add(funcionario.getNome());
+      }
+    }
+
+    System.out.println(aniversariantes.toString());
   }
 }
