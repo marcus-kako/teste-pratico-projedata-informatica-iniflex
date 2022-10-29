@@ -8,6 +8,8 @@ import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+ import java.util.HashMap;
+ import java.util.Map;
 
 /** Classe referente ao requisito 3. */
 public class Principal {
@@ -16,23 +18,34 @@ public class Principal {
 
   public static void main(String[] args) throws InvalidDateFormatException, FutureDateException {
     // Requisitos.
+
     // 3.1 – Inserir todos os funcionários, na mesma ordem e informações da tabela.
     System.out
         .println("[Requisito 3.1] ___________________________________________________________");
     addToArray();
+
     // 3.2 – Remover o funcionário “João” da lista.
     System.out
         .println("\n [Requisito 3.2] ___________________________________________________________");
     removeByName("João");
+
     // 3.3 – Imprimir todos os funcionários com todas suas informações.
     System.out
-    .println("\n [Requisito 3.3] ___________________________________________________________");
+        .println("\n [Requisito 3.3] ___________________________________________________________");
     showTable();
+
     // 3.4 – Os funcionários receberam 10% de aumento de salário, atualizar a lista
     // de funcionários com novo valor.
     System.out
-    .println("\n [Requisito 3.4] ___________________________________________________________");
+        .println("\n [Requisito 3.4] ___________________________________________________________");
     salaryIncrease(10);
+
+    // 3.5 – Agrupar os funcionários por função em um MAP, sendo a chave a “função”
+    // e o valor a “lista de funcionários”.
+    // 3.6 – Imprimir os funcionários, agrupados por função.
+    System.out
+        .println("\n [Requisito 3.5, 3.6] ___________________________________________________________");
+    groupOfEmployees();
   }
 
   public static void addToArray() throws InvalidDateFormatException, FutureDateException {
@@ -142,7 +155,26 @@ public class Principal {
     for (Funcionario func : funcionarios) {
       func.salaryIncrease(porcentagem);
     }
-    System.out.println("$$$$$$$$$$$$$$$$$$$$ Aumentando salário em " + porcentagem + "% $$$$$$$$$$$$$$$$$$$$$$\n");
+    System.out.println(
+        "$$$$$$$$$$$$$$$$$$$$ Aumentando salário em " + porcentagem + "% $$$$$$$$$$$$$$$$$$$$$$\n");
     showTable();
+  }
+
+  public static void groupOfEmployees() {
+    System.out.println("================= Ordenando funcionários pelos seus cargos ======================");
+    Map<String, ArrayList<String>> orderByFunc = new HashMap<>();
+    for (Funcionario funcionario : funcionarios) {
+      if (orderByFunc.get(funcionario.getFuncao()) == null) {
+        ArrayList<String> nomes = new ArrayList<>();
+        nomes.add(funcionario.getNome());
+        orderByFunc.put(funcionario.getFuncao(), nomes);
+      } else {
+        ArrayList<String> nomes = orderByFunc.get(funcionario.getFuncao());
+        nomes.add(funcionario.getNome());
+        orderByFunc.put(funcionario.getFuncao(), nomes);
+      }
+    }
+    System.out.println(orderByFunc);
+    
   }
 }
