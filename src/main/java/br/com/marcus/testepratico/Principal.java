@@ -52,11 +52,17 @@ public class Principal {
         .println("\n [Requisito 3.8] ___________________________________________________________");
     birthdayMonth(10);
     birthdayMonth(12);
-    
-    // 3.9 – Imprimir o funcionário com a maior idade, exibir os atributos: nome e idade.
+
+    // 3.9 – Imprimir o funcionário com a maior idade, exibir os atributos: nome e
+    // idade.
     System.out
         .println("\n [Requisito 3.9] ___________________________________________________________");
     olderEmployee();
+
+    // 3.10 – Imprimir a lista de funcionários por ordem alfabética.
+    System.out
+        .println("\n [Requisito 3.10] ___________________________________________________________");
+    alphabeticalOrder();
   }
 
   public static void addToArray() throws InvalidDateFormatException, FutureDateException {
@@ -192,19 +198,19 @@ public class Principal {
 
   public static void birthdayMonth(int mes) {
     Map<Integer, String> mesesDoAno = new HashMap<>();
-    
+
     Integer[] intMes = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
     String[] meses = { "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto",
         "Setembro", "Outubro", "Novembro", "Dezembro" };
-    
+
     for (int index = 0; index < intMes.length; index += 1) {
       mesesDoAno.put(intMes[index], meses[index]);
     }
-    
+
     System.out.printf("Aniversariantes do mes %s (%s): ", mes, mesesDoAno.get(mes));
-    
+
     ArrayList<String> aniversariantes = new ArrayList<>();
-    
+
     for (Funcionario funcionario : funcionarios) {
       if (funcionario.getDataNascimento().getMonthValue() == mes) {
         aniversariantes.add(funcionario.getNome());
@@ -221,14 +227,27 @@ public class Principal {
         oldEmployee = funcionario;
       }
     }
-    
+
     String nome = oldEmployee.getNome();
     LocalDate dataNascimento = oldEmployee.getDataNascimento();
-    
+
     LocalDate agora = LocalDate.now();
     int idade = agora.compareTo(dataNascimento);
-    
+
     System.out.println("================ Funcionário com a maior idade ===================");
     System.out.printf("Nome: %s, Idade: %s anos.\n", nome, idade);
+  }
+
+  public static void alphabeticalOrder() {
+    System.out
+        .println("================ Lista de funcionários em ordem alfabética ===================");
+
+    ArrayList<String> nomes = new ArrayList<>();
+    for (Funcionario f : funcionarios) {
+      nomes.add(f.getNome());
+    }
+
+    nomes.sort(null);
+    System.out.println(nomes);
   }
 }
