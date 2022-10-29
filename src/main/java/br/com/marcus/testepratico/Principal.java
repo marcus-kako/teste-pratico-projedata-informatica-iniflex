@@ -52,6 +52,11 @@ public class Principal {
         .println("\n [Requisito 3.8] ___________________________________________________________");
     birthdayMonth(10);
     birthdayMonth(12);
+    
+    // 3.9 – Imprimir o funcionário com a maior idade, exibir os atributos: nome e idade.
+    System.out
+        .println("\n [Requisito 3.9] ___________________________________________________________");
+    olderEmployee();
   }
 
   public static void addToArray() throws InvalidDateFormatException, FutureDateException {
@@ -207,5 +212,23 @@ public class Principal {
     }
 
     System.out.println(aniversariantes.toString());
+  }
+
+  public static void olderEmployee() {
+    Funcionario oldEmployee = funcionarios.get(0);
+    for (Funcionario funcionario : funcionarios) {
+      if (funcionario.getDataNascimento().isBefore(oldEmployee.getDataNascimento())) {
+        oldEmployee = funcionario;
+      }
+    }
+    
+    String nome = oldEmployee.getNome();
+    LocalDate dataNascimento = oldEmployee.getDataNascimento();
+    
+    LocalDate agora = LocalDate.now();
+    int idade = agora.compareTo(dataNascimento);
+    
+    System.out.println("================ Funcionário com a maior idade ===================");
+    System.out.printf("Nome: %s, Idade: %s anos.\n", nome, idade);
   }
 }
